@@ -8,7 +8,7 @@
           "apis": {
             "custom": {
               "endpoint": {
-                "uri": "ask-custom-dabblelab-api-starter-default"
+                "uri": "ask-custom-polarcast-default"
               }
             }
           }
