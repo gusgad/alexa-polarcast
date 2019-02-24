@@ -3,26 +3,29 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "summary": "Provides the total number of astronauts who are currently in space.",
+          "summary": "An Amazon Alexa skill useful for people living close to polar regions of the Earth.",
           "examplePhrases": [
-            "Alexa, ask API Starter how many people are in space",
-            "Alexa, ask how many astronauts are in space from API Starter",
-            "Alexa, ask API Starter how many humans are in space now"
+            "Alexa, ask Polarcast how many days are left until we see the sun again.",
+            "Alexa, ask Polarcast how long we are going to have daylight for.",
+            "Alexa, ask Polarcast if I can see the Northern Lights in Longyearbyen today."
           ],
           "keywords": [
-            "space",
-            "astronauts",
-            "rocket"
+            "polar",
+            "weather",
+            "cold",
+            "sun",
+            "day",
+            "cold"
           ],
-          "name": "polarcast",
-          "description": "Guess how many astronauts are currently in space? Know the answer? Alexa does. Just say: Alexa, ask rocket man how many people in space.",
+          "name": "Polarcast",
+          "description": "Guess how much daylight you will have today? Know the answer? Alexa does. Just say: Alexa, ask Polarcast how long we are going to have daylight for.",
           "smallIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-sm.png",
           "largeIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-lg.png"
         }
       },
       "isAvailableWorldwide": true,
       "testingInstructions": "No special instructions.",
-      "category": "EDUCATION_AND_REFERENCE",
+      "category": "WEATHER",
       "distributionCountries": []
     },
     "apis": {

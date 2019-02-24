@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "api starter",
+      "invocationName": "polarcast",
       "types": [],
       "intents": [
         {
@@ -15,6 +15,20 @@
         {
           "name": "AMAZON.StopIntent",
           "samples": []
+        },
+        {
+          "name": "HelloIntent",
+          "samples": [
+            "hello",
+            "hi",
+            "how are you",
+            "good morning",
+            "good afternoon",
+            "good evening",
+            "morning",
+            "what is up",
+            "what is popping"
+          ]
         },
         {
           "name": "GetRemoteDataIntent",

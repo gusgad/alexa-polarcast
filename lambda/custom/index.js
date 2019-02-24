@@ -3,10 +3,31 @@
 
 const Alexa = require('ask-sdk-core');
 
-const GetRemoteDataHandler = {
+const SKILL_NAME = 'polarcast';
+const HELP_MESSAGE = 'You can ask me about everything polar related, or, you can say exit... What can I help you with?';
+const HELP_REPROMPT = 'What can I help you with?';
+const STOP_MESSAGE = 'Goodbye!';
+
+const HelloIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest'
       || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'HelloIntent');
+  },
+  async handle(handlerInput) {
+    let outputSpeech = 'Hello from the cold cold Polarcast! You can ask me anything polar-related.';
+
+    return handlerInput.responseBuilder
+      .withStandardCard(SKILL_NAME, outputSpeech)
+      .speak(outputSpeech)
+      .getResponse();
+
+  },
+};
+
+const GetRemoteDataHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'GetRemoteDataIntent');
   },
   async handle(handlerInput) {
@@ -40,6 +61,7 @@ const GetRemoteDataHandler = {
 
   },
 };
+
 
 const HelpIntentHandler = {
   canHandle(handlerInput) {
@@ -115,6 +137,7 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 
 exports.handler = skillBuilder
   .addRequestHandlers(
+    HelloIntentHandler,
     GetRemoteDataHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
