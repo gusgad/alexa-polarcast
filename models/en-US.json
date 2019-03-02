@@ -31,19 +31,20 @@
           ]
         },
         {
-          "name": "GetRemoteDataIntent",
-          "slots": [],
-          "samples": [
-            "how many people are in space",
-            "how many people are in space now",
-            "how many people are currently in space",
-            "how many humans are in space",
-            "how many humans are in space now",
-            "how many humans are currently in space",
-            "how many astronauts are in space",
-            "how many astronauts are in space now",
-            "how many astronauts are currently in space"
-          ]
+            "name": "SunriseIntent",
+            "slots": [
+                {
+                    "name": "location",
+                    "type": "AMAZON.Country"
+                }
+            ],
+            "samples": [
+                "when will the sun rise in {location}",
+                "when does the sun rise in {location}",
+                "when is the sunrise in {location}",
+                "what time does the sun rise in {location}",
+                "what time is the sunrise in {location}"
+            ]
         }
       ]
     }

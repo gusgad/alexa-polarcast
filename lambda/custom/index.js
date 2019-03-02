@@ -6,6 +6,7 @@ const Alexa = require('ask-sdk-core');
 const SKILL_NAME = 'polarcast';
 const HELP_MESSAGE = 'You can ask me about everything polar related, or, you can say exit... What can I help you with?';
 const HELP_REPROMPT = 'What can I help you with?';
+const ERROR_MESSAGE = 'Sorry, Polarcast is a bit tired. Ask again, please.'
 const STOP_MESSAGE = 'Goodbye!';
 
 const HelloIntentHandler = {
@@ -25,44 +26,36 @@ const HelloIntentHandler = {
   },
 };
 
-const GetRemoteDataHandler = {
+const SunriseIntentHandler = {
   canHandle(handlerInput) {
     return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'GetRemoteDataIntent');
+      && handlerInput.requestEnvelope.request.intent.name === 'SunriseIntent');
   },
   async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
     let outputSpeech = 'This is the default message.';
 
-    await getRemoteData('http://api.open-notify.org/astros.json')
+    await getRemoteData('https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400&date=2019-03-02')
       .then((response) => {
         const data = JSON.parse(response);
-        outputSpeech = `There are currently ${data.people.length} astronauts in space. `;
-        for (let i = 0; i < data.people.length; i++) {
-          if (i === 0) {
-            //first record
-            outputSpeech = outputSpeech + 'Their names are: ' + data.people[i].name + ', '
-          } else if (i === data.people.length - 1) {
-            //last record
-            outputSpeech = outputSpeech + 'and ' + data.people[i].name + '.'
-          } else {
-            //middle record(s)
-            outputSpeech = outputSpeech + data.people[i].name + ', '
-          }
-        }
+        
+        outputSpeech = `The sunrise time in ${locationSlotValue} is ${data['results']['sunrise']}`;
       })
       .catch((err) => {
         //set an optional error message here
-        //outputSpeech = err.message;
+        outputSpeech = err.message;
+        //outputSpeech = ERROR_MESSAGE;
       });
 
     return handlerInput.responseBuilder
       .speak(outputSpeech)
       .getResponse();
-
   },
 };
 
 
+
+/* BUILT IN INTENT HANDLERS */
 const HelpIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -138,7 +131,7 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 exports.handler = skillBuilder
   .addRequestHandlers(
     HelloIntentHandler,
-    GetRemoteDataHandler,
+    SunriseIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler
