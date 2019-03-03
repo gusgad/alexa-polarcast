@@ -8,6 +8,9 @@ const HELP_MESSAGE = 'You can ask me about everything polar related, or, you can
 const HELP_REPROMPT = 'What can I help you with?';
 const ERROR_MESSAGE = 'Sorry, Polarcast is a bit tired. Ask again, please.'
 const STOP_MESSAGE = 'Goodbye!';
+const SUNRISE_SUNSET_API_URL = 'https://api.sunrise-sunset.org';
+const LOCATIONIQ_API_URL = 'https://eu1.locationiq.com';
+const LOCATIONIQ_API_KEY = '4fd5318b2415e7';
 
 const HelloIntentHandler = {
   canHandle(handlerInput) {
@@ -35,11 +38,21 @@ const SunriseIntentHandler = {
     const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
     let outputSpeech = 'This is the default message.';
 
-    await getRemoteData('https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400&date=2019-03-02')
-      .then((response) => {
+    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+      .then(response => {
         const data = JSON.parse(response);
+        const lng = data[0]['lon'];
+        const lat = data[0]['lat'];
         
-        outputSpeech = `The sunrise time in ${locationSlotValue} is ${data['results']['sunrise']}`;
+        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=2019-03-02`);
+      })
+      .then(response => {
+        const data = JSON.parse(response)['results']['sunrise'].split(' ');
+        
+        let sunriseTime = data[0].split(':').slice(0, 2).join(':')
+        let middayValue = data[1]
+        
+        outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTime} ${middayValue}`;
       })
       .catch((err) => {
         //set an optional error message here

@@ -34,7 +34,7 @@
             "codeUri": "lambda/custom",
             "functionName": "ask-custom-polarcast-default",
             "handler": "index.handler",
-            "revisionId": "10a662a1-0bd1-46a4-a5a2-0810364941ff",
+            "revisionId": "59f1bf67-c379-4869-88cc-c13bf579045b",
             "runtime": "nodejs8.10"
           }
         ]
