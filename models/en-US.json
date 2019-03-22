@@ -85,6 +85,51 @@
             "how long is it going to be bright in {location}",
             "how long is it going to be bright in {location} today"
           ]
+        },
+        {
+          "name": "SolarNoonIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the solar noon time in {location}",
+            "when will the solar noon be today in {location}",
+            "when will be the solar noon in {location}",
+            "when will i have solar noon in {location}",
+            "what is the solar noon time in {location} today",
+            "when will the solar noon be today in {location} today",
+            "when will be the solar noon in {location} today",
+            "when will i have solar noon in {location} today",
+            "when will the sun reach its highest point today in {location}",
+            "what time does the sun reach its highest point in {location}",
+            "what time does the sun get its highest point in {location}",
+            "what time is the sun at its highest point in {location}"
+          ]
+        },
+        {
+          "name": "TwilightIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the twilight time in {location}",
+            "when will the twilight be today in {location}",
+            "when will be the twilight in {location}",
+            "when will i have twilight in {location}",
+            "what is the twilight time in {location} today",
+            "when will the twilight be today in {location} today",
+            "when will be the twilight in {location} today",
+            "when will i have twilight in {location} today",
+            "what time is dusk in {location}",
+            "what time is dusk in {location} today",
+            "what is the dusk time in {location}"
+          ]
         }
       ]
     }

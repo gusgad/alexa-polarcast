@@ -21,7 +21,7 @@
         },
         "interactionModel": {
           "en-US": {
-            "eTag": "d0d9aa02bfc0b8f30f7c01282e7975aa"
+            "eTag": "1e2dcd0214d8ed7b5f150ce2d67a7366"
           }
         },
         "lambda": [
@@ -34,7 +34,7 @@
             "codeUri": "lambda/custom",
             "functionName": "ask-custom-polarcast-default",
             "handler": "index.handler",
-            "revisionId": "dd137cd6-8e33-4eb8-9fae-2cce86d2fb2a",
+            "revisionId": "309da416-a88a-4ea4-88d2-b59d2c2fbf42",
             "runtime": "nodejs8.10"
           }
         ]

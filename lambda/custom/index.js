@@ -2,6 +2,7 @@
 /* eslint-disable  no-console */
 
 const Alexa = require('ask-sdk-core');
+const dayjs = require('dayjs');
 
 const SKILL_NAME = 'polarcast';
 const HELP_MESSAGE = 'You can ask me about everything polar related, or, you can say exit... What can I help you with?';
@@ -12,6 +13,10 @@ const SUNRISE_SUNSET_API_URL = 'https://api.sunrise-sunset.org';
 const LOCATIONIQ_API_URL = 'https://eu1.locationiq.com';
 const LOCATIONIQ_API_KEY = '4fd5318b2415e7';
 
+
+/****************************
+ * CUSTOM INTENT HANDLERS *
+*****************************/
 const HelloIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest'
@@ -29,6 +34,7 @@ const HelloIntentHandler = {
   },
 };
 
+
 /* SUNSRISE TIME IN CITY TODAY */
 const SunriseIntentHandler = {
   canHandle(handlerInput) {
@@ -38,6 +44,7 @@ const SunriseIntentHandler = {
   async handle(handlerInput) {
     const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
     let outputSpeech = 'This is the default message.';
+    const todaysDate = dayjs().format('YYYY-MM-DD');
 
     await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
       .then(response => {
@@ -45,13 +52,13 @@ const SunriseIntentHandler = {
         const lng = data[0]['lon'];
         const lat = data[0]['lat'];
         
-        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=2019-03-02`);
+        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
       })
       .then(response => {
         const data = JSON.parse(response)['results']['sunrise'].split(' ');
         
-        let sunriseTime = data[0].split(':').slice(0, 2).join(':')
-        let middayValue = data[1]
+        let sunriseTime = data[0].split(':').slice(0, 2).join(':');
+        let middayValue = data[1];
         
         outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTime} ${middayValue}`;
       })
@@ -67,6 +74,7 @@ const SunriseIntentHandler = {
   },
 };
 
+
 /* SUNSET TIME IN CITY TODAY */
 const SunsetIntentHandler = {
   canHandle(handlerInput) {
@@ -76,6 +84,7 @@ const SunsetIntentHandler = {
   async handle(handlerInput) {
     const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
     let outputSpeech = 'This is the default message.';
+    const todaysDate = dayjs().format('YYYY-MM-DD');
 
     await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
       .then(response => {
@@ -83,13 +92,13 @@ const SunsetIntentHandler = {
         const lng = data[0]['lon'];
         const lat = data[0]['lat'];
 
-        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=2019-03-02`);
+        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
       })
       .then(response => {
         const data = JSON.parse(response)['results']['sunset'].split(' ');
 
-        const sunsetTime = data[0].split(':').slice(0, 2).join(':')
-        const middayValue = data[1]
+        const sunsetTime = data[0].split(':').slice(0, 2).join(':');
+        const middayValue = data[1];
 
         outputSpeech = `The sunset time in ${locationSlotValue} is ${sunsetTime} ${middayValue}`;
       })
@@ -105,6 +114,7 @@ const SunsetIntentHandler = {
   },
 };
 
+
 /* DAY LENGTH IN CITY TODAY */
 const DayLengthIntentHandler = {
   canHandle(handlerInput) {
@@ -114,6 +124,7 @@ const DayLengthIntentHandler = {
   async handle(handlerInput) {
     const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
     let outputSpeech = 'This is the default message.';
+    const todaysDate = dayjs().format('YYYY-MM-DD');
 
     await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
       .then(response => {
@@ -121,7 +132,7 @@ const DayLengthIntentHandler = {
         const lng = data[0]['lon'];
         const lat = data[0]['lat'];
 
-        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=2019-03-02`);
+        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
       })
       .then(response => {
         const data = JSON.parse(response)['results']['day_length'].split(':');
@@ -145,8 +156,90 @@ const DayLengthIntentHandler = {
 };
 
 
+/* SOLAR NOON TODAY */
+const SolarNoonIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'SolarNoonIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+    const todaysDate = dayjs().format('YYYY-MM-DD');
 
-/* BUILT IN INTENT HANDLERS */
+    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+      .then(response => {
+        const data = JSON.parse(response);
+        const lng = data[0]['lon'];
+        const lat = data[0]['lat'];
+
+        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
+      })
+      .then(response => {
+        const data = JSON.parse(response)['results']['solar_noon'].split(' ');
+
+        const solarNoonTime = data[0].split(':').slice(0, 2).join(':');
+        const middayValue = data[1];
+
+        outputSpeech = `The solar noon in ${locationSlotValue} is at ${solarNoonTime} ${middayValue}.`;
+      })
+      .catch((err) => {
+        //set an optional error message here
+        outputSpeech = err.message;
+        //outputSpeech = ERROR_MESSAGE;
+      });
+
+    return handlerInput.responseBuilder
+      .speak(outputSpeech)
+      .getResponse();
+  },
+};
+
+
+/* TWILIGHT TIME TODAY */
+const TwilightIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'TwilightIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+    const todaysDate = dayjs().format('YYYY-MM-DD');
+
+    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+      .then(response => {
+        const data = JSON.parse(response);
+        const lng = data[0]['lon'];
+        const lat = data[0]['lat'];
+
+        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
+      })
+      .then(response => {
+        const data = JSON.parse(response)['results']['astronomical_twilight_end'].split(' ');
+
+        const twilightTime = data[0].split(':').slice(0, 2).join(':');
+        const middayValue = data[1];
+
+        outputSpeech = `The astronomical twilight time in ${locationSlotValue} is at ${twilightTime} ${middayValue}.`;
+      })
+      .catch((err) => {
+        //set an optional error message here
+        outputSpeech = err.message;
+        //outputSpeech = ERROR_MESSAGE;
+      });
+
+    return handlerInput.responseBuilder
+      .speak(outputSpeech)
+      .getResponse();
+  },
+};
+
+
+
+/**************************** 
+ * BUILT-IN INTENT HANDLERS * 
+*****************************/
 const HelpIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -221,10 +314,14 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 
 exports.handler = skillBuilder
   .addRequestHandlers(
+    // CUSTOM
     HelloIntentHandler,
     SunriseIntentHandler,
     SunsetIntentHandler,
     DayLengthIntentHandler,
+    SolarNoonIntentHandler,
+    TwilightIntentHandler,
+    // BUILT-IN
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler
