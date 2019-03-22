@@ -29,6 +29,7 @@ const HelloIntentHandler = {
   },
 };
 
+/* SUNSRISE TIME IN CITY TODAY */
 const SunriseIntentHandler = {
   canHandle(handlerInput) {
     return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -53,6 +54,83 @@ const SunriseIntentHandler = {
         let middayValue = data[1]
         
         outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTime} ${middayValue}`;
+      })
+      .catch((err) => {
+        //set an optional error message here
+        outputSpeech = err.message;
+        //outputSpeech = ERROR_MESSAGE;
+      });
+
+    return handlerInput.responseBuilder
+      .speak(outputSpeech)
+      .getResponse();
+  },
+};
+
+/* SUNSET TIME IN CITY TODAY */
+const SunsetIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'SunsetIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+      .then(response => {
+        const data = JSON.parse(response);
+        const lng = data[0]['lon'];
+        const lat = data[0]['lat'];
+
+        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=2019-03-02`);
+      })
+      .then(response => {
+        const data = JSON.parse(response)['results']['sunset'].split(' ');
+
+        const sunsetTime = data[0].split(':').slice(0, 2).join(':')
+        const middayValue = data[1]
+
+        outputSpeech = `The sunset time in ${locationSlotValue} is ${sunsetTime} ${middayValue}`;
+      })
+      .catch((err) => {
+        //set an optional error message here
+        outputSpeech = err.message;
+        //outputSpeech = ERROR_MESSAGE;
+      });
+
+    return handlerInput.responseBuilder
+      .speak(outputSpeech)
+      .getResponse();
+  },
+};
+
+/* DAY LENGTH IN CITY TODAY */
+const DayLengthIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'DayLengthIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+      .then(response => {
+        const data = JSON.parse(response);
+        const lng = data[0]['lon'];
+        const lat = data[0]['lat'];
+
+        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=2019-03-02`);
+      })
+      .then(response => {
+        const data = JSON.parse(response)['results']['day_length'].split(':');
+
+        const dayLengthHour = data[0].replace(/\b0+/g, '');
+        const dayLengthMinute = data[1].replace(/\b0+/g, '');
+        const dayLengthSecond = data[2].replace(/\b0+/g, '');
+
+        outputSpeech = `The day length in ${locationSlotValue} is ${dayLengthHour} ${dayLengthHour === '1' ? 'hour' : 'hours'} ${dayLengthMinute} ${dayLengthMinute === '1' ? 'minute' : 'minutes'} and ${dayLengthSecond} ${dayLengthSecond === '1' ? 'second' : 'seconds'}.`;
       })
       .catch((err) => {
         //set an optional error message here
@@ -145,6 +223,8 @@ exports.handler = skillBuilder
   .addRequestHandlers(
     HelloIntentHandler,
     SunriseIntentHandler,
+    SunsetIntentHandler,
+    DayLengthIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler
