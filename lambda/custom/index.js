@@ -12,6 +12,8 @@ const STOP_MESSAGE = 'Goodbye!';
 const SUNRISE_SUNSET_API_URL = 'https://api.sunrise-sunset.org';
 const LOCATIONIQ_API_URL = 'https://eu1.locationiq.com';
 const LOCATIONIQ_API_KEY = '4fd5318b2415e7';
+const DARKSKY_API_URL = 'https://api.darksky.net';
+const DARKSKY_API_KEY = '6cf9dc388e2332cc037741897ab652f5';
 
 
 /****************************
@@ -46,32 +48,38 @@ const SunriseIntentHandler = {
     let outputSpeech = 'This is the default message.';
     const todaysDate = dayjs().format('YYYY-MM-DD');
 
-    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
-      .then(response => {
-        const data = JSON.parse(response);
-        const lng = data[0]['lon'];
-        const lat = data[0]['lat'];
-        
-        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
-      })
-      .then(response => {
-        const data = JSON.parse(response)['results']['sunrise'].split(' ');
-        
-        let sunriseTime = data[0].split(':').slice(0, 2).join(':');
-        let middayValue = data[1];
-        
-        outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTime} ${middayValue}`;
-      })
-      .catch((err) => {
-        //set an optional error message here
-        outputSpeech = err.message;
-        //outputSpeech = ERROR_MESSAGE;
-      });
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
 
-    return handlerInput.responseBuilder
-      .speak(outputSpeech)
-      .getResponse();
-  },
+          return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['results']['sunrise'].split(' ');
+
+          let sunriseTime = data[0].split(':').slice(0, 2).join(':');
+          let middayValue = data[1];
+
+          outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTime} ${middayValue}`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
 };
 
 
@@ -86,32 +94,38 @@ const SunsetIntentHandler = {
     let outputSpeech = 'This is the default message.';
     const todaysDate = dayjs().format('YYYY-MM-DD');
 
-    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
-      .then(response => {
-        const data = JSON.parse(response);
-        const lng = data[0]['lon'];
-        const lat = data[0]['lat'];
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
 
-        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
-      })
-      .then(response => {
-        const data = JSON.parse(response)['results']['sunset'].split(' ');
+          return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['results']['sunset'].split(' ');
 
-        const sunsetTime = data[0].split(':').slice(0, 2).join(':');
-        const middayValue = data[1];
+          const sunsetTime = data[0].split(':').slice(0, 2).join(':');
+          const middayValue = data[1];
 
-        outputSpeech = `The sunset time in ${locationSlotValue} is ${sunsetTime} ${middayValue}`;
-      })
-      .catch((err) => {
-        //set an optional error message here
-        outputSpeech = err.message;
-        //outputSpeech = ERROR_MESSAGE;
-      });
+          outputSpeech = `The sunset time in ${locationSlotValue} is ${sunsetTime} ${middayValue}`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
 
-    return handlerInput.responseBuilder
-      .speak(outputSpeech)
-      .getResponse();
-  },
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
 };
 
 
@@ -126,33 +140,39 @@ const DayLengthIntentHandler = {
     let outputSpeech = 'This is the default message.';
     const todaysDate = dayjs().format('YYYY-MM-DD');
 
-    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
-      .then(response => {
-        const data = JSON.parse(response);
-        const lng = data[0]['lon'];
-        const lat = data[0]['lat'];
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
 
-        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
-      })
-      .then(response => {
-        const data = JSON.parse(response)['results']['day_length'].split(':');
+          return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['results']['day_length'].split(':');
 
-        const dayLengthHour = data[0].replace(/\b0+/g, '');
-        const dayLengthMinute = data[1].replace(/\b0+/g, '');
-        const dayLengthSecond = data[2].replace(/\b0+/g, '');
+          const dayLengthHour = data[0].replace(/\b0+/g, '');
+          const dayLengthMinute = data[1].replace(/\b0+/g, '');
+          const dayLengthSecond = data[2].replace(/\b0+/g, '');
 
-        outputSpeech = `The day length in ${locationSlotValue} is ${dayLengthHour} ${dayLengthHour === '1' ? 'hour' : 'hours'} ${dayLengthMinute} ${dayLengthMinute === '1' ? 'minute' : 'minutes'} and ${dayLengthSecond} ${dayLengthSecond === '1' ? 'second' : 'seconds'}.`;
-      })
-      .catch((err) => {
-        //set an optional error message here
-        outputSpeech = err.message;
-        //outputSpeech = ERROR_MESSAGE;
-      });
+          outputSpeech = `The day length in ${locationSlotValue} is ${dayLengthHour} ${dayLengthHour === '1' ? 'hour' : 'hours'} ${dayLengthMinute} ${dayLengthMinute === '1' ? 'minute' : 'minutes'} and ${dayLengthSecond} ${dayLengthSecond === '1' ? 'second' : 'seconds'}.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
 
-    return handlerInput.responseBuilder
-      .speak(outputSpeech)
-      .getResponse();
-  },
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
 };
 
 
@@ -167,32 +187,38 @@ const SolarNoonIntentHandler = {
     let outputSpeech = 'This is the default message.';
     const todaysDate = dayjs().format('YYYY-MM-DD');
 
-    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
-      .then(response => {
-        const data = JSON.parse(response);
-        const lng = data[0]['lon'];
-        const lat = data[0]['lat'];
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
 
-        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
-      })
-      .then(response => {
-        const data = JSON.parse(response)['results']['solar_noon'].split(' ');
+          return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['results']['solar_noon'].split(' ');
 
-        const solarNoonTime = data[0].split(':').slice(0, 2).join(':');
-        const middayValue = data[1];
+          const solarNoonTime = data[0].split(':').slice(0, 2).join(':');
+          const middayValue = data[1];
 
-        outputSpeech = `The solar noon in ${locationSlotValue} is at ${solarNoonTime} ${middayValue}.`;
-      })
-      .catch((err) => {
-        //set an optional error message here
-        outputSpeech = err.message;
-        //outputSpeech = ERROR_MESSAGE;
-      });
+          outputSpeech = `The solar noon in ${locationSlotValue} is at ${solarNoonTime} ${middayValue}.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
 
-    return handlerInput.responseBuilder
-      .speak(outputSpeech)
-      .getResponse();
-  },
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
 };
 
 
@@ -207,32 +233,441 @@ const TwilightIntentHandler = {
     let outputSpeech = 'This is the default message.';
     const todaysDate = dayjs().format('YYYY-MM-DD');
 
-    await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
-      .then(response => {
-        const data = JSON.parse(response);
-        const lng = data[0]['lon'];
-        const lat = data[0]['lat'];
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
 
-        return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
-      })
-      .then(response => {
-        const data = JSON.parse(response)['results']['astronomical_twilight_end'].split(' ');
+          return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['results']['astronomical_twilight_end'].split(' ');
 
-        const twilightTime = data[0].split(':').slice(0, 2).join(':');
-        const middayValue = data[1];
+          const twilightTime = data[0].split(':').slice(0, 2).join(':');
+          const middayValue = data[1];
 
-        outputSpeech = `The astronomical twilight time in ${locationSlotValue} is at ${twilightTime} ${middayValue}.`;
-      })
-      .catch((err) => {
-        //set an optional error message here
-        outputSpeech = err.message;
-        //outputSpeech = ERROR_MESSAGE;
-      });
+          outputSpeech = `The astronomical twilight time in ${locationSlotValue} is at ${twilightTime} ${middayValue}.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
 
-    return handlerInput.responseBuilder
-      .speak(outputSpeech)
-      .getResponse();
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
+};
+
+
+/* OZONE DENSITY TODAY */
+const OzoneDensityIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'OzoneDensityIntent');
   },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
+
+          return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly,daily,flags?units=si`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['currently']['ozone'];
+
+          outputSpeech = `The columnar density of total atmospheric ozone in ${locationSlotValue} is ${data} Dobson units.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
+};
+
+
+/* TEMPERATURE TODAY */
+const TemperatureIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'TemperatureIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
+
+          return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly,flags&units=auto`);
+        })
+        .then(response => {
+          const data = String(JSON.parse(response)['currently']['temperature']).split('.')[0];
+
+          outputSpeech = `The air temperature currently in ${locationSlotValue} is ${data} degrees.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
+};
+
+
+/* VISIBILITY TODAY */
+const VisibilityIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'VisibilityIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
+
+          return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
+        })
+        .then(response => {
+          const data = JSON.parse(response);
+
+          const visibilityValue = data['currently']['visibility'];
+          const unit = data['flags']['units'];
+
+          outputSpeech = `The average visibility currently in ${locationSlotValue} is ${visibilityValue} ${unit === 'si' ? 'kilometers' : 'miles'}.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
+};
+
+
+/* UV INDEX TODAY */
+const uVIndexIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'uVIndexIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
+
+          return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['currently']['uvIndex'];
+
+          outputSpeech = `The ultraviolet index currently in ${locationSlotValue} is ${data}.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
+};
+
+
+/* CLOUD COVERAGE TODAY */
+const cloudCoverageIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'cloudCoverageIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
+
+          return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['currently']['cloudCover'];
+
+          outputSpeech = `The cloud coverage currently in ${locationSlotValue} is ${data * 100} percent.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
+};
+
+
+/* WIND TODAY */
+const windIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'windIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
+
+          return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
+        })
+        .then(response => {
+          const data = JSON.parse(response);
+
+          const windSpeed = data['currently']['windSpeed'];
+          const unit = data['flags']['units'];
+          let windBearing;
+
+          if (data['currently']['windBearing'] === 0 || data['currently']['windBearing'] === 360 || !data['currently']['windBearing']) {
+            windBearing = 'north';
+          } else if (data['currently']['windBearing'] > 0 && data['currently']['windBearing'] < 90) {
+            windBearing = 'north-east';
+          } else if (data['currently']['windBearing'] === 90) {
+            windBearing = 'east';
+          } else if (data['currently']['windBearing'] > 90 && data['currently']['windBearing'] < 180) {
+            windBearing = 'south-east';
+          } else if (data['currently']['windBearing'] === 180) {
+            windBearing = 'south';
+          } else if (data['currently']['windBearing'] > 180 && data['currently']['windBearing'] < 270) {
+            windBearing = 'south-west';
+          } else if (data['currently']['windBearing'] === 270) {
+            windBearing = 'west';
+          } else if (data['currently']['windBearing'] > 270 && data['currently']['windBearing'] < 360) {
+            windBearing = 'noth-west';
+          } 
+
+          outputSpeech = `The wind speed currently in ${locationSlotValue} is ${windSpeed} ${unit === 'si' ? 'kilometers' : 'miles'} per hour coming from ${windBearing}.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
+};
+
+
+/* PRESSURE TODAY */
+const pressureIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'pressureIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
+
+          return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['currently']['pressure'];
+
+          outputSpeech = `The sea-level air pressure in ${locationSlotValue} is ${data} millibars.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
+};
+
+
+/* HUMIDITY TODAY */
+const humidityIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'humidityIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
+
+          return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
+        })
+        .then(response => {
+          const data = JSON.parse(response)['currently']['humidity'];
+
+          outputSpeech = `The relative humidity in ${locationSlotValue} is ${data *100} percent.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
+};
+
+
+/* DEW POINT TODAY */
+const dewPointIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'dewPointIntent');
+  },
+  async handle(handlerInput) {
+    const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+
+    if (!locationSlotValue) {
+      return handlerInput.responseBuilder
+        .speak('Sorry, you need to specify the country or city in your request.')
+        .getResponse();
+    } else {
+      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+        .then(response => {
+          const data = JSON.parse(response);
+          const lng = data[0]['lon'];
+          const lat = data[0]['lat'];
+
+          return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
+        })
+        .then(response => {
+          const data = String(JSON.parse(response)['currently']['dewPoint']).split('.')[0];
+
+          outputSpeech = `The dew point currently in ${locationSlotValue} is ${data} degrees.`;
+        })
+        .catch((err) => {
+          //set an optional error message here
+          outputSpeech = err.message;
+          //outputSpeech = ERROR_MESSAGE;
+        });
+
+      return handlerInput.responseBuilder
+        .speak(outputSpeech)
+        .getResponse();
+    }
+  }
 };
 
 
@@ -321,6 +756,15 @@ exports.handler = skillBuilder
     DayLengthIntentHandler,
     SolarNoonIntentHandler,
     TwilightIntentHandler,
+    OzoneDensityIntentHandler,
+    TemperatureIntentHandler,
+    VisibilityIntentHandler,
+    uVIndexIntentHandler,
+    cloudCoverageIntentHandler,
+    windIntentHandler,
+    pressureIntentHandler,
+    humidityIntentHandler,
+    dewPointIntentHandler,
     // BUILT-IN
     HelpIntentHandler,
     CancelAndStopIntentHandler,

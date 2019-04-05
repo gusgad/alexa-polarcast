@@ -130,6 +130,175 @@
             "what time is dusk in {location} today",
             "what is the dusk time in {location}"
           ]
+        },
+        {
+          "name": "OzoneDensityIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the ozone density in {location}",
+            "what is the ozone density level in {location}",
+            "what is the level of ozone in {location}",
+            "how is the ozone density in {location}",
+            "what is the ozone density in {location}",
+            "how dense is the ozone in {location} today"
+          ]
+        },
+        {
+          "name": "TemperatureIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the weather today in {location}",
+            "what is the temperature in {location}",
+            "what is the temperature today in {location}",
+            "what is the weather in {location}",
+            "what is the weather today in {location}",
+            "the temperature in {location}",
+            "how cold is it in {location} today",
+            "how warm is it in {location} today"
+          ]
+        },
+        {
+          "name": "VisibilityIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the visibility today in {location}",
+            "what is the visibility in {location}",
+            "how is the visibility today in {location}",
+            "what is the level visibility in {location}",
+            "what is the visibility degree today in {location}",
+            "about the visibility in {location}",
+            "how visible is it in {location} today",
+            "how much is it visible in {location} today"
+          ]
+        },
+        {
+          "name": "uVIndexIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the UV index today in {location}",
+            "what is the ultraviolet index today in {location}",
+            "what is the UV index in {location}",
+            "what is the ultraviolet index in {location}",
+            "how is the UV index today in {location}",
+            "how is the ultraviolet index today in {location}",
+            "what is the level of UV in {location}",
+            "what is the level of ultraviolet index in {location}",
+            "about the ultraviolet index in {location}",
+            "how much is the UV index in {location} today",
+            "how much is the ultraviolet index in {location} today"
+          ]
+        },
+        {
+          "name": "cloudCoverageIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the cloud coverage today in {location}",
+            "what is the cloud coverage in {location}",
+            "how is the cloud coverage today in {location}",
+            "what is the level of cloud coverage in {location}",
+            "what is the cloud coverage level in {location}",
+            "how cloudy is {location} today"
+          ]
+        },
+        {
+          "name": "windIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the wind speed in {location}",
+            "what is the wind direction in {location}",
+            "what is the wind speed today in {location}",
+            "what is the wind direction today in {location}",
+            "how windy is it in {location}",
+            "how windy is it today in {location}",
+            "tell me about the wind speed in {location}",
+            "tell me about the wind direction in {location}"
+          ]
+        },
+        {
+          "name": "pressureIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the air pressure in {location}",
+            "what is the air pressure in {location} today",
+            "what is the sea-level air pressure in {location}",
+            "what is the sea-level air pressure in {location} today",
+            "how pressurized is the air today in {location}",
+            "how much pressure is theere in the air today in {location}",
+            "what is the air pressure level in {location}",
+            "what is the air pressure level in {location} today"
+          ]
+        },
+        {
+          "name": "humidityIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the humidity in {location}",
+            "what is the humidity in {location} today",
+            "what is the air humidity in {location}",
+            "what is the air humidity level in {location} today",
+            "what is the air humidity percentage in {location} today",
+            "how humid is the air today in {location}",
+            "how humid is the weather today in {location}",
+            "how much humidity is theere in the air today in {location}"
+          ]
+        },
+        {
+          "name": "dewPointIntent",
+          "slots": [
+            {
+              "name": "location",
+              "type": "AMAZON.Country"
+            }
+          ],
+          "samples": [
+            "what is the dew point in {location}",
+            "what is the dew point in {location} today",
+            "what is the dew point level in {location}",
+            "what is the dew point level in {location} today",
+            "what is the air dew point in {location}",
+            "what is the air dew point level in {location} today",
+            "what is the dew point degree in {location} today"
+          ]
         }
       ]
     }
