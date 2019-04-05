@@ -62,10 +62,10 @@ const SunriseIntentHandler = {
           return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
         })
         .then(response => {
-          const data = JSON.parse(response)['results']['sunrise'].split(' ');
+          const data = JSON.parse(response);
 
-          let sunriseTime = data[0].split(':').slice(0, 2).join(':');
-          let middayValue = data[1];
+          let sunriseTime = data['results']['sunrise'].split(' ')[0].split(':').slice(0, 2).join(':');
+          let middayValue = data['results']['sunrise'].split(' ')[1];
 
           outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTime} ${middayValue}`;
         })
@@ -108,10 +108,10 @@ const SunsetIntentHandler = {
           return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
         })
         .then(response => {
-          const data = JSON.parse(response)['results']['sunset'].split(' ');
+          const data = JSON.parse(response);
 
-          const sunsetTime = data[0].split(':').slice(0, 2).join(':');
-          const middayValue = data[1];
+          const sunsetTime = data['results']['sunset'].split(' ')[0].split(':').slice(0, 2).join(':');
+          const middayValue = data['results']['sunset'].split(' ')[1];
 
           outputSpeech = `The sunset time in ${locationSlotValue} is ${sunsetTime} ${middayValue}`;
         })
@@ -154,11 +154,13 @@ const DayLengthIntentHandler = {
           return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
         })
         .then(response => {
-          const data = JSON.parse(response)['results']['day_length'].split(':');
+          const data = JSON.parse(response);
 
-          const dayLengthHour = data[0].replace(/\b0+/g, '');
-          const dayLengthMinute = data[1].replace(/\b0+/g, '');
-          const dayLengthSecond = data[2].replace(/\b0+/g, '');
+          const dayLength = data['results']['day_length'].split(':');
+
+          const dayLengthHour = dayLength[0].replace(/\b0+/g, '');
+          const dayLengthMinute = dayLength[1].replace(/\b0+/g, '');
+          const dayLengthSecond = dayLength[2].replace(/\b0+/g, '');
 
           outputSpeech = `The day length in ${locationSlotValue} is ${dayLengthHour} ${dayLengthHour === '1' ? 'hour' : 'hours'} ${dayLengthMinute} ${dayLengthMinute === '1' ? 'minute' : 'minutes'} and ${dayLengthSecond} ${dayLengthSecond === '1' ? 'second' : 'seconds'}.`;
         })
@@ -201,10 +203,10 @@ const SolarNoonIntentHandler = {
           return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
         })
         .then(response => {
-          const data = JSON.parse(response)['results']['solar_noon'].split(' ');
+          const data = JSON.parse(response);
 
-          const solarNoonTime = data[0].split(':').slice(0, 2).join(':');
-          const middayValue = data[1];
+          const solarNoonTime = data['results']['solar_noon'].split(' ')[0].split(':').slice(0, 2).join(':');
+          const middayValue = data['results']['solar_noon'].split(' ')[1];
 
           outputSpeech = `The solar noon in ${locationSlotValue} is at ${solarNoonTime} ${middayValue}.`;
         })
@@ -247,10 +249,10 @@ const TwilightIntentHandler = {
           return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
         })
         .then(response => {
-          const data = JSON.parse(response)['results']['astronomical_twilight_end'].split(' ');
+          const data = JSON.parse(response);
 
-          const twilightTime = data[0].split(':').slice(0, 2).join(':');
-          const middayValue = data[1];
+          const twilightTime = data['results']['astronomical_twilight_end'].split(' ')[0].split(':').slice(0, 2).join(':');
+          const middayValue = data['results']['astronomical_twilight_end'].split(' ')[1];
 
           outputSpeech = `The astronomical twilight time in ${locationSlotValue} is at ${twilightTime} ${middayValue}.`;
         })
@@ -292,9 +294,11 @@ const OzoneDensityIntentHandler = {
           return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly,daily,flags?units=si`);
         })
         .then(response => {
-          const data = JSON.parse(response)['currently']['ozone'];
+          const data = JSON.parse(response);
 
-          outputSpeech = `The columnar density of total atmospheric ozone in ${locationSlotValue} is ${data} Dobson units.`;
+          const ozoneValue = data['currently']['ozone'];
+
+          outputSpeech = `The columnar density of total atmospheric ozone in ${locationSlotValue} is ${ozoneValue} Dobson units.`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -334,9 +338,11 @@ const TemperatureIntentHandler = {
           return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly,flags&units=auto`);
         })
         .then(response => {
-          const data = String(JSON.parse(response)['currently']['temperature']).split('.')[0];
+          const data = JSON.parse(response);
 
-          outputSpeech = `The air temperature currently in ${locationSlotValue} is ${data} degrees.`;
+          const temperatureValue = String(data['currently']['temperature']).split('.')[0];
+
+          outputSpeech = `The air temperature currently in ${locationSlotValue} is ${temperatureValue} degrees.`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -421,9 +427,11 @@ const uVIndexIntentHandler = {
           return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
         })
         .then(response => {
-          const data = JSON.parse(response)['currently']['uvIndex'];
+          const data = JSON.parse(response);
 
-          outputSpeech = `The ultraviolet index currently in ${locationSlotValue} is ${data}.`;
+          const uvIndexValue = data['currently']['uvIndex'];
+
+          outputSpeech = `The ultraviolet index currently in ${locationSlotValue} is ${uvIndexValue}.`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -463,9 +471,11 @@ const cloudCoverageIntentHandler = {
           return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
         })
         .then(response => {
-          const data = JSON.parse(response)['currently']['cloudCover'];
+          const data = JSON.parse(response);
 
-          outputSpeech = `The cloud coverage currently in ${locationSlotValue} is ${data * 100} percent.`;
+          const cloudCoverValue = data['currently']['cloudCover'];
+
+          outputSpeech = `The cloud coverage currently in ${locationSlotValue} is ${cloudCoverValue * 100} percent.`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -569,9 +579,11 @@ const pressureIntentHandler = {
           return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
         })
         .then(response => {
-          const data = JSON.parse(response)['currently']['pressure'];
+          const data = JSON.parse(response);
 
-          outputSpeech = `The sea-level air pressure in ${locationSlotValue} is ${data} millibars.`;
+          const pressureValue = data['currently']['pressure'];
+
+          outputSpeech = `The sea-level air pressure in ${locationSlotValue} is ${pressureValue} millibars.`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -611,9 +623,11 @@ const humidityIntentHandler = {
           return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
         })
         .then(response => {
-          const data = JSON.parse(response)['currently']['humidity'];
+          const data = JSON.parse(response);
 
-          outputSpeech = `The relative humidity in ${locationSlotValue} is ${data *100} percent.`;
+          const humidityValue = data['currently']['humidity'];
+
+          outputSpeech = `The relative humidity in ${locationSlotValue} is ${humidityValue *100} percent.`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -653,9 +667,23 @@ const dewPointIntentHandler = {
           return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
         })
         .then(response => {
-          const data = String(JSON.parse(response)['currently']['dewPoint']).split('.')[0];
+          const data = {
+            alerts: {
+              title: 'avalance in nepal',
+              description: 'avalance in nepal',
+              regions:'nepal',
+              severity:'strong'
+            }
+          };
 
-          outputSpeech = `The dew point currently in ${locationSlotValue} is ${data} degrees.`;
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
+          const dewPointValue = String(data['currently']['dewPoint']).split('.')[0];
+
+          outputSpeech = `The dew point currently in ${locationSlotValue} is ${dewPointValue} degrees.`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -670,7 +698,16 @@ const dewPointIntentHandler = {
   }
 };
 
+/****************************
+ * CUSTOM REUSABLE FUNCTIONS *
+*****************************/
+function handleWeatherAlert(data) {
 
+  const outputSpeech = `Attention! Polarcast has detected an alert for your location, issued by the government in order to warn you. 
+  Severity of the alert is - ${data[severity]}.`
+
+  return outputSpeech;
+}
 
 /**************************** 
  * BUILT-IN INTENT HANDLERS * 
