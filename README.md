@@ -1,8 +1,8 @@
-# Polarcast - a free & open-source Amazon Alexa Skill
+# Polarcast
 
-Polarcast is an Amazon Alexa skill specifically tailored for meteorologists, atmospheric scientists or people living in extreme conditions that require up-to-date weather information on a daily basis. Alexa makes it easy to communicate and retreive the needed information just by voice commands.
+Polarcast is a free & open-source Amazon Alexa skill specifically tailored for meteorologists, atmospheric scientists or people living in extreme conditions that require up-to-date weather information on a daily basis. Alexa makes it easy to communicate and retreive the needed information just by voice commands.
 
-![Polarcast logo](../../assets/polarcast_logo.png "Polarcast logo")
+![Polarcast logo](../../assets/polarcast_logo.png)
 
 ### Available commands & possible examples:
 1. Sunrise/Sunset time:
