@@ -64,6 +64,11 @@ const SunriseIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           let sunriseTime = data['results']['sunrise'].split(' ')[0].split(':').slice(0, 2).join(':');
           let middayValue = data['results']['sunrise'].split(' ')[1];
 
@@ -110,6 +115,11 @@ const SunsetIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           const sunsetTime = data['results']['sunset'].split(' ')[0].split(':').slice(0, 2).join(':');
           const middayValue = data['results']['sunset'].split(' ')[1];
 
@@ -155,6 +165,11 @@ const DayLengthIntentHandler = {
         })
         .then(response => {
           const data = JSON.parse(response);
+
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
 
           const dayLength = data['results']['day_length'].split(':');
 
@@ -205,6 +220,11 @@ const SolarNoonIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           const solarNoonTime = data['results']['solar_noon'].split(' ')[0].split(':').slice(0, 2).join(':');
           const middayValue = data['results']['solar_noon'].split(' ')[1];
 
@@ -251,6 +271,11 @@ const TwilightIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           const twilightTime = data['results']['astronomical_twilight_end'].split(' ')[0].split(':').slice(0, 2).join(':');
           const middayValue = data['results']['astronomical_twilight_end'].split(' ')[1];
 
@@ -296,6 +321,11 @@ const OzoneDensityIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           const ozoneValue = data['currently']['ozone'];
 
           outputSpeech = `The columnar density of total atmospheric ozone in ${locationSlotValue} is ${ozoneValue} Dobson units.`;
@@ -340,6 +370,11 @@ const TemperatureIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           const temperatureValue = String(data['currently']['temperature']).split('.')[0];
 
           outputSpeech = `The air temperature currently in ${locationSlotValue} is ${temperatureValue} degrees.`;
@@ -383,6 +418,11 @@ const VisibilityIntentHandler = {
         })
         .then(response => {
           const data = JSON.parse(response);
+
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
 
           const visibilityValue = data['currently']['visibility'];
           const unit = data['flags']['units'];
@@ -429,6 +469,11 @@ const uVIndexIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           const uvIndexValue = data['currently']['uvIndex'];
 
           outputSpeech = `The ultraviolet index currently in ${locationSlotValue} is ${uvIndexValue}.`;
@@ -473,6 +518,11 @@ const cloudCoverageIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           const cloudCoverValue = data['currently']['cloudCover'];
 
           outputSpeech = `The cloud coverage currently in ${locationSlotValue} is ${cloudCoverValue * 100} percent.`;
@@ -516,6 +566,11 @@ const windIntentHandler = {
         })
         .then(response => {
           const data = JSON.parse(response);
+
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
 
           const windSpeed = data['currently']['windSpeed'];
           const unit = data['flags']['units'];
@@ -581,6 +636,11 @@ const pressureIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           const pressureValue = data['currently']['pressure'];
 
           outputSpeech = `The sea-level air pressure in ${locationSlotValue} is ${pressureValue} millibars.`;
@@ -625,6 +685,11 @@ const humidityIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
+          if (data['alerts']) {
+            outputSpeech = handleWeatherAlert(data['alerts']);
+            return false;
+          }
+
           const humidityValue = data['currently']['humidity'];
 
           outputSpeech = `The relative humidity in ${locationSlotValue} is ${humidityValue *100} percent.`;
@@ -667,14 +732,8 @@ const dewPointIntentHandler = {
           return getRemoteData(`${DARKSKY_API_URL}/forecast/${DARKSKY_API_KEY}/${lat},${lng}?exclude=minutely,hourly&units=auto`);
         })
         .then(response => {
-          const data = {
-            alerts: {
-              title: 'avalance in nepal',
-              description: 'avalance in nepal',
-              regions:'nepal',
-              severity:'strong'
-            }
-          };
+
+          const data = JSON.parse(response);
 
           if (data['alerts']) {
             outputSpeech = handleWeatherAlert(data['alerts']);
@@ -704,7 +763,9 @@ const dewPointIntentHandler = {
 function handleWeatherAlert(data) {
 
   const outputSpeech = `Attention! Polarcast has detected an alert for your location, issued by the government in order to warn you. 
-  Severity of the alert is - ${data[severity]}.`
+  Severity of the alert is - ${data['severity']}.
+  ${data['title']} in regions: ${data['regions']}!
+  Description of the alert - ${data['description']}.`;
 
   return outputSpeech;
 }
