@@ -81,6 +81,7 @@ const SunriseIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -132,6 +133,7 @@ const SunsetIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -186,6 +188,7 @@ const DayLengthIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -237,6 +240,7 @@ const SolarNoonIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -288,6 +292,7 @@ const TwilightIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -337,6 +342,7 @@ const OzoneDensityIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -386,6 +392,7 @@ const TemperatureIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -436,6 +443,7 @@ const VisibilityIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -485,6 +493,7 @@ const uVIndexIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -534,6 +543,7 @@ const cloudCoverageIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -603,6 +613,7 @@ const windIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -652,6 +663,7 @@ const pressureIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -701,6 +713,7 @@ const humidityIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
@@ -751,6 +764,7 @@ const dewPointIntentHandler = {
         });
 
       return handlerInput.responseBuilder
+        .withStandardCard(SKILL_NAME, outputSpeech)
         .speak(outputSpeech)
         .getResponse();
     }
