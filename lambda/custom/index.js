@@ -14,6 +14,9 @@ const LOCATIONIQ_API_URL = 'https://eu1.locationiq.com';
 const LOCATIONIQ_API_KEY = '4fd5318b2415e7';
 const DARKSKY_API_URL = 'https://api.darksky.net';
 const DARKSKY_API_KEY = '6cf9dc388e2332cc037741897ab652f5';
+const HERE_API_URL = 'https://weather.cit.api.here.com';
+const HERE_API_APP_ID = 'qzs5bnazFAG1k0Hx5i2n';
+const HERE_API_APP_CODE = '0udTyTxdQw-kWil11an59g';
 
 
 /****************************
@@ -26,7 +29,7 @@ const HelloIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'HelloIntent');
   },
   async handle(handlerInput) {
-    let outputSpeech = 'Hello from the cold cold Polarcast! You can ask me anything polar-related.';
+    let outputSpeech = 'Hello from the cold cold Polarcast! You can ask me anything weather-related.';
 
     return handlerInput.responseBuilder
       .withStandardCard(SKILL_NAME, outputSpeech)
@@ -46,33 +49,18 @@ const SunriseIntentHandler = {
   async handle(handlerInput) {
     const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
     let outputSpeech = 'This is the default message.';
-    const todaysDate = dayjs().format('YYYY-MM-DD');
 
     if (!locationSlotValue) {
       return handlerInput.responseBuilder
         .speak('Sorry, you need to specify the country or city in your request.')
         .getResponse();
     } else {
-      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+      await getRemoteData(`${HERE_API_URL}/weather/1.0/report.json?product=forecast_astronomy&name=${locationSlotValue}&app_id=${HERE_API_APP_ID}&app_code=${HERE_API_APP_CODE}`)
         .then(response => {
-          const data = JSON.parse(response);
-          const lng = data[0]['lon'];
-          const lat = data[0]['lat'];
+          const data = response['astronomy']['astronomy'];
+          const sunriseTimeValue = data[0]['sunrise'];
 
-          return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
-        })
-        .then(response => {
-          const data = JSON.parse(response);
-
-          if (data['alerts']) {
-            outputSpeech = handleWeatherAlert(data['alerts']);
-            return false;
-          }
-
-          let sunriseTime = data['results']['sunrise'].split(' ')[0].split(':').slice(0, 2).join(':');
-          let middayValue = data['results']['sunrise'].split(' ')[1];
-
-          outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTime} ${middayValue}`;
+          outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTimeValue}`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -105,26 +93,12 @@ const SunsetIntentHandler = {
         .speak('Sorry, you need to specify the country or city in your request.')
         .getResponse();
     } else {
-      await getRemoteData(`${LOCATIONIQ_API_URL}/v1/search.php?key=${LOCATIONIQ_API_KEY}&q=${locationSlotValue}&format=json`)
+      await getRemoteData(`${HERE_API_URL}/weather/1.0/report.json?product=forecast_astronomy&name=${locationSlotValue}&app_id=${HERE_API_APP_ID}&app_code=${HERE_API_APP_CODE}`)
         .then(response => {
-          const data = JSON.parse(response);
-          const lng = data[0]['lon'];
-          const lat = data[0]['lat'];
+          const data = response['astronomy']['astronomy'];
+          const sunriseTimeValue = data[0]['sunset'];
 
-          return getRemoteData(`${SUNRISE_SUNSET_API_URL}/json?lat=${lat}&lng=${lng}&date=${todaysDate}`);
-        })
-        .then(response => {
-          const data = JSON.parse(response);
-
-          if (data['alerts']) {
-            outputSpeech = handleWeatherAlert(data['alerts']);
-            return false;
-          }
-
-          const sunsetTime = data['results']['sunset'].split(' ')[0].split(':').slice(0, 2).join(':');
-          const middayValue = data['results']['sunset'].split(' ')[1];
-
-          outputSpeech = `The sunset time in ${locationSlotValue} is ${sunsetTime} ${middayValue}`;
+          outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTimeValue}`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -167,11 +141,6 @@ const DayLengthIntentHandler = {
         })
         .then(response => {
           const data = JSON.parse(response);
-
-          if (data['alerts']) {
-            outputSpeech = handleWeatherAlert(data['alerts']);
-            return false;
-          }
 
           const dayLength = data['results']['day_length'].split(':');
 
@@ -223,11 +192,6 @@ const SolarNoonIntentHandler = {
         .then(response => {
           const data = JSON.parse(response);
 
-          if (data['alerts']) {
-            outputSpeech = handleWeatherAlert(data['alerts']);
-            return false;
-          }
-
           const solarNoonTime = data['results']['solar_noon'].split(' ')[0].split(':').slice(0, 2).join(':');
           const middayValue = data['results']['solar_noon'].split(' ')[1];
 
@@ -274,11 +238,6 @@ const TwilightIntentHandler = {
         })
         .then(response => {
           const data = JSON.parse(response);
-
-          if (data['alerts']) {
-            outputSpeech = handleWeatherAlert(data['alerts']);
-            return false;
-          }
 
           const twilightTime = data['results']['astronomical_twilight_end'].split(' ')[0].split(':').slice(0, 2).join(':');
           const middayValue = data['results']['astronomical_twilight_end'].split(' ')[1];
