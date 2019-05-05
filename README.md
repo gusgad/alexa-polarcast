@@ -2,6 +2,8 @@
 
 Polarcast is a free & open-source Amazon Alexa skill specifically tailored for meteorologists, atmospheric scientists or people living in extreme conditions that require up-to-date weather information on a daily basis. Alexa makes it easy to communicate and retreive the needed information just by voice commands.
 
+Guess how much daylight you will have today? Know the answer? Alexa does. Just say: Alexa, ask Polarcast, how long are we going to have  the daylight for.
+
 ![Polarcast logo](./assets/polarcast_logo.png)
 
 ### Available commands & possible examples:
