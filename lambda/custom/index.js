@@ -55,12 +55,12 @@ const SunriseIntentHandler = {
         .speak('Sorry, you need to specify the country or city in your request.')
         .getResponse();
     } else {
-      await getRemoteData(`${HERE_API_URL}/weather/1.0/report.json?product=forecast_astronomy&name=${locationSlotValue}&app_id=${HERE_API_APP_ID}&app_code=${HERE_API_APP_CODE}`)
+      await getRemoteData(`${HERE_API_URL}/weather/1.0/report.json?product=forecast_astronomy&name=Havana&app_id=${HERE_API_APP_ID}&app_code=${HERE_API_APP_CODE}`)
         .then(response => {
-          const data = response['astronomy']['astronomy'];
+          const data = JSON.parse(response)['astronomy']['astronomy'];
           const sunriseTimeValue = data[0]['sunrise'];
 
-          outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTimeValue}`;
+          outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTimeValue}.`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -95,10 +95,10 @@ const SunsetIntentHandler = {
     } else {
       await getRemoteData(`${HERE_API_URL}/weather/1.0/report.json?product=forecast_astronomy&name=${locationSlotValue}&app_id=${HERE_API_APP_ID}&app_code=${HERE_API_APP_CODE}`)
         .then(response => {
-          const data = response['astronomy']['astronomy'];
+          const data = JSON.parse(response)['astronomy']['astronomy'];
           const sunriseTimeValue = data[0]['sunset'];
 
-          outputSpeech = `The sunrise time in ${locationSlotValue} is ${sunriseTimeValue}`;
+          outputSpeech = `The sunset time in ${locationSlotValue} is ${sunriseTimeValue}.`;
         })
         .catch((err) => {
           //set an optional error message here
@@ -663,7 +663,7 @@ const humidityIntentHandler = {
 
           const humidityValue = data['currently']['humidity'];
 
-          outputSpeech = `The relative humidity in ${locationSlotValue} is ${humidityValue *100} percent.`;
+          outputSpeech = `The relative humidity in ${locationSlotValue} is ${Math.round(humidityValue * 100)} percent.`;
         })
         .catch((err) => {
           //set an optional error message here
