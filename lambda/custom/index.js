@@ -64,8 +64,8 @@ const SunriseIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -102,8 +102,8 @@ const SunsetIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -152,8 +152,8 @@ const DayLengthIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -199,8 +199,8 @@ const SolarNoonIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -246,8 +246,8 @@ const TwilightIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -296,8 +296,8 @@ const OzoneDensityIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -346,8 +346,8 @@ const TemperatureIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -397,8 +397,8 @@ const VisibilityIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -447,8 +447,8 @@ const uVIndexIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -497,8 +497,8 @@ const cloudCoverageIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -567,8 +567,8 @@ const windIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -617,8 +617,8 @@ const pressureIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -667,8 +667,8 @@ const humidityIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
@@ -718,8 +718,8 @@ const dewPointIntentHandler = {
         })
         .catch((err) => {
           //set an optional error message here
-          outputSpeech = err.message;
-          //outputSpeech = ERROR_MESSAGE;
+          //outputSpeech = err.message;
+          outputSpeech = ERROR_MESSAGE;
         });
 
       return handlerInput.responseBuilder
