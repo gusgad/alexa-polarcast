@@ -4,10 +4,10 @@
 const Alexa = require('ask-sdk-core');
 const dayjs = require('dayjs');
 
-const SKILL_NAME = 'polarcast';
+const SKILL_NAME = 'Polar Cast';
 const HELP_MESSAGE = 'You can ask me about everything polar related, or, you can say exit... What can I help you with?';
 const HELP_REPROMPT = 'What can I help you with?';
-const ERROR_MESSAGE = 'Sorry, Polarcast is a bit tired. Ask again, please.'
+const ERROR_MESSAGE = 'Sorry, Polar Cast is a bit tired. Ask again, please.'
 const STOP_MESSAGE = 'Goodbye!';
 const SUNRISE_SUNSET_API_URL = 'https://api.sunrise-sunset.org';
 const LOCATIONIQ_API_URL = 'https://eu1.locationiq.com';
@@ -29,7 +29,7 @@ const HelloIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'HelloIntent');
   },
   async handle(handlerInput) {
-    let outputSpeech = 'Hello from the cold cold Polarcast! You can ask me anything weather-related.';
+    let outputSpeech = 'Hello from the cold cold Polar Cast! You can ask me anything weather-related.';
 
     return handlerInput.responseBuilder
       .withStandardCard(SKILL_NAME, outputSpeech)
@@ -735,7 +735,7 @@ const dewPointIntentHandler = {
 *****************************/
 function handleWeatherAlert(data) {
 
-  const outputSpeech = `Attention! Polarcast has detected an alert for your location, issued by the government in order to warn you. 
+  const outputSpeech = `Attention! Polar Cast has detected an alert for your location, issued by the government in order to warn you. 
   Severity of the alert is - ${data['severity']}.
   ${data['title']} in regions: ${data['regions']}!
   Description of the alert - ${data['description']}.`;

@@ -3,11 +3,9 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "summary": "An Amazon Alexa skill useful for people living close to polar regions of the Earth.",
+          "summary": "An Amazon Alexa skill useful for meteorologists, atmospheric scientists.",
           "examplePhrases": [
-            "Alexa, ask Polarcast how many days are left until we see the sun again.",
-            "Alexa, ask Polarcast how long we are going to have daylight for.",
-            "Alexa, ask Polarcast if I can see the Northern Lights in Longyearbyen today."
+            "Alexa, ask Polar Cast, how long are we going to have the daylight for."
           ],
           "keywords": [
             "polar",
@@ -17,8 +15,8 @@
             "day",
             "cold"
           ],
-          "name": "Polarcast",
-          "description": "Guess how much daylight you will have today? Know the answer? Alexa does. Just say: Alexa, ask Polarcast how long we are going to have daylight for.",
+          "name": "Polar Cast",
+          "description": "Guess how much daylight you will have today? Know the answer? Alexa does. Just say: Alexa, ask Polar Cast how long we are going to have daylight for.",
           "smallIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-sm.png",
           "largeIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-lg.png"
         }
