@@ -18,8 +18,8 @@
           ],
           "name": "Polar Cast",
           "description": "Guess how much of daylight you will have today? Know the answer? Alexa does. Just say: Alexa, ask Polar Cast how long we are going to have daylight for.",
-          "smallIconUri": "https://raw.githubusercontent.com/gusgad/alexa-polarcast/master/assets/polarcast_logo.png",
-          "largeIconUri": "https://raw.githubusercontent.com/gusgad/alexa-polarcast/master/assets/polarcast_logo.png"
+          "smallIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-sm.png",
+          "largeIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-lg.png"
         }
       },
       "isAvailableWorldwide": true,
