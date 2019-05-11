@@ -5,7 +5,8 @@
         "en-US": {
           "summary": "An Amazon Alexa skill useful for meteorologists, atmospheric scientists.",
           "examplePhrases": [
-            "Alexa, ask Polar Cast, how long are we going to have the daylight for."
+            "Alexa, ask Polar Cast, how long are we going to have the daylight for.",
+            "Alexa, ask Polar Cast, what is the ozone density level."
           ],
           "keywords": [
             "polar",
