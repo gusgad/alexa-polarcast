@@ -17,9 +17,9 @@
             "cold"
           ],
           "name": "Polar Cast",
-          "description": "Guess how much daylight you will have today? Know the answer? Alexa does. Just say: Alexa, ask Polar Cast how long we are going to have daylight for.",
-          "smallIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-sm.png",
-          "largeIconUri": "https://s3.amazonaws.com/cdn.dabblelab.com/img/skill-template-default-lg.png"
+          "description": "Guess how much of daylight you will have today? Know the answer? Alexa does. Just say: Alexa, ask Polar Cast how long we are going to have daylight for.",
+          "smallIconUri": "https://raw.githubusercontent.com/gusgad/alexa-polarcast/master/assets/polarcast_logo.png",
+          "largeIconUri": "https://raw.githubusercontent.com/gusgad/alexa-polarcast/master/assets/polarcast_logo.png"
         }
       },
       "isAvailableWorldwide": true,
@@ -39,8 +39,8 @@
       "allowsPurchases": false,
       "locales": {
         "en-US": {
-          "termsOfUseUrl": "http://dabblelab.com/terms",
-          "privacyPolicyUrl": "http://dabblelab.com/privacy"
+          "termsOfUseUrl": "https://github.com/gusgad/alexa-polarcast/blob/master/LICENSE",
+          "privacyPolicyUrl": "https://github.com/gusgad/alexa-polarcast/blob/master/LICENSE"
         }
       },
       "isExportCompliant": true,
