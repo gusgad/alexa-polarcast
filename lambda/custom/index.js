@@ -122,6 +122,22 @@ const DayLengthIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'DayLengthIntent');
   },
   async handle(handlerInput) {
+    //const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
+    let outputSpeech = 'This is the default message.';
+    const todaysDate = dayjs().format('YYYY-MM-DD');
+
+    return handlerInput.responseBuilder
+      .speak('Sorry, you need to specify the country or city in your request.')
+      .getResponse();
+  }
+};
+/*
+const DayLengthIntentHandler = {
+  canHandle(handlerInput) {
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'DayLengthIntent');
+  },
+  async handle(handlerInput) {
     const locationSlotValue = handlerInput.requestEnvelope.request.intent.slots.location.value;
     let outputSpeech = 'This is the default message.';
     const todaysDate = dayjs().format('YYYY-MM-DD');
@@ -162,7 +178,7 @@ const DayLengthIntentHandler = {
         .getResponse();
     }
   }
-};
+};*/
 
 
 /* SOLAR NOON TODAY */

@@ -68,22 +68,16 @@
         },
         {
           "name": "DayLengthIntent",
-          "slots": [
-            {
-              "name": "location",
-              "type": "AMAZON.Country"
-            }
-          ],
           "samples": [
-            "how long is the day length in {location}",
-            "how long will the sun be up in {location}",
-            "for how long am I going to see the sun in {location} today",
-            "how long is the sun visible in {location} today",
-            "what is the day length in {location}",
-            "what is the daylight length in {location}",
-            "what is the sunlight length in {location}",
-            "how long is it going to be bright in {location}",
-            "how long is it going to be bright in {location} today"
+            "how long is the day length",
+            "how long will the sun be up",
+            "for how long am I going to see the sun today",
+            "how long is the sun visible today",
+            "what is the day length",
+            "what is the daylight length",
+            "what is the sunlight length",
+            "how long is it going to be bright",
+            "how long is it going to be bright today"
           ]
         },
         {
