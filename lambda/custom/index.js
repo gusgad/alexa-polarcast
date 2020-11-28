@@ -11,6 +11,7 @@ const ERROR_MESSAGE = 'Sorry, Polar Cast is a bit tired. Ask again, please.'
 const STOP_MESSAGE = 'Goodbye!';
 const SUNRISE_SUNSET_API_URL = 'https://api.sunrise-sunset.org';
 const LOCATIONIQ_API_URL = 'https://eu1.locationiq.com';
+/* NON-CRUCIAL APIs, SO WHY NOT LEAVE THE KEYS HERE  ¯\_(ツ)_/¯ */
 const LOCATIONIQ_API_KEY = '4fd5318b2415e7';
 const DARKSKY_API_URL = 'https://api.darksky.net';
 const DARKSKY_API_KEY = '6cf9dc388e2332cc037741897ab652f5';
