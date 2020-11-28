@@ -11,13 +11,12 @@ const ERROR_MESSAGE = 'Sorry, Polar Cast is a bit tired. Ask again, please.'
 const STOP_MESSAGE = 'Goodbye!';
 const SUNRISE_SUNSET_API_URL = 'https://api.sunrise-sunset.org';
 const LOCATIONIQ_API_URL = 'https://eu1.locationiq.com';
-/* NON-CRUCIAL APIs, SO WHY NOT LEAVE THE KEYS HERE  ¯\_(ツ)_/¯ */
-const LOCATIONIQ_API_KEY = '4fd5318b2415e7';
+const LOCATIONIQ_API_KEY = process.env.LOCATIONIQ_API_KEY;
 const DARKSKY_API_URL = 'https://api.darksky.net';
-const DARKSKY_API_KEY = '6cf9dc388e2332cc037741897ab652f5';
+const DARKSKY_API_KEY = process.env.DARKSKY_API_KEY;
 const HERE_API_URL = 'https://weather.cit.api.here.com';
-const HERE_API_APP_ID = 'qzs5bnazFAG1k0Hx5i2n';
-const HERE_API_APP_CODE = '0udTyTxdQw-kWil11an59g';
+const HERE_API_APP_ID = process.env.HERE_API_APP_ID;
+const HERE_API_APP_CODE = process.env.HERE_API_APP_CODE;
 
 
 /****************************
